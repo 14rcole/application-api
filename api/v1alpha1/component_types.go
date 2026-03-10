@@ -55,7 +55,10 @@ type ComponentSource struct {
 type ComponentSourceUnion struct {
 	// Git Source for a Component.
 	// Optional.
+	// +optional
 	// !!! Will be removed when we remove old model
+	// This is used in the Snapshot CR which both integration and release rely on.  We will have to do some refactoring
+	// when re remove the old model
 	GitSource *GitSource `json:"git,omitempty"`
 
 	// Git repository URL for the component.
@@ -228,11 +231,11 @@ type RepositorySettings struct {
 // ComponentSpec defines the desired state of Component
 type ComponentSpec struct {
 
+	// Optional.
+	// +optional
 	// +kubebuilder:validation:Pattern=^$|^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
 	// +kubebuilder:validation:MaxLength=63
 	// ComponentName is name of the component to be added to the Application. The name must adhere to DNS-1123 validation.
-	// Optional.
-	// +optional
 	// !!! Will be removed when we remove old model
 	ComponentName string `json:"componentName,omitempty"`
 
